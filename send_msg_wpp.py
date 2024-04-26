@@ -3,17 +3,13 @@ from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 import time
-import pandas as pd
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 def send(msg, titulo):
     # Inicializa o driver do Chrome
     options = webdriver.ChromeOptions()
     options.add_argument(
-        r"user-data-dir=C:\Users\thiag\AppData\Local\Google\Chrome\User Data\Default")
+        r"user-data-dir=C:\Users\Admin\AppData\Local\Google\Chrome\User Data\Default")
     servico = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=servico, options=options)
 
