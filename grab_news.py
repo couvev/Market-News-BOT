@@ -49,47 +49,51 @@ ultima_noticia = ""
 
 
 while True:
-    # Fazendo a requisição e lendo o feed
-    feed = feedparser.parse(url_feed)
 
-    # Verificando se a requisição foi bem-sucedida
-    if feed.status == 200:
-        print("Feed lido com sucesso!")
-        # Extraindo e imprimindo informações do feed
-        if len(feed.entries) > 0:
-            entry = feed.entries[0]  # A primeira entrada é a mais recente
-            if entry.link != ultima_noticia:
-                print("Nova notícia encontrada:")
-                print("Título:", entry.title)
-                print("Link:", entry.link)
-                print("Publicado em:", entry.published)
-                print("-" * 50)
-                # Atualiza o link da última notícia
-                ultima_noticia = entry.link
+    try:
+        # Fazendo a requisição e lendo o feed
+        feed = feedparser.parse(url_feed)
 
-                text = copiar_noticia(ultima_noticia)
+        # Verificando se a requisição foi bem-sucedida
+        if feed.status == 200:
+            print("Feed lido com sucesso!")
+            # Extraindo e imprimindo informações do feed
+            if len(feed.entries) > 0:
+                entry = feed.entries[0]  # A primeira entrada é a mais recente
+                if entry.link != ultima_noticia:
+                    print("Nova notícia encontrada:")
+                    print("Título:", entry.title)
+                    print("Link:", entry.link)
+                    print("Publicado em:", entry.published)
+                    print("-" * 50)
+                    # Atualiza o link da última notícia
+                    ultima_noticia = entry.link
 
-                formated_text = mc.create(text)
+                    text = copiar_noticia(ultima_noticia)
 
-                formated_text = formated_text + f"\n\nSaiba mais: {
-                    ultima_noticia}"
+                    formated_text = mc.create(text)
 
-                # Enviar para WhatsApp
-                smw.send(formated_text, entry.title)
+                    formated_text = formated_text + f"\n\nSaiba mais: {
+                        ultima_noticia}"
 
-                formated_text = f"{entry.title}\n\n" + formated_text
+                    # Enviar para WhatsApp
+                    smw.send(formated_text, entry.title)
 
-                # Enviar para Telegram
-                asyncio.run(smt.send(formated_text, entry.enclosures[0].href))
+                    formated_text = f"{entry.title}\n\n" + formated_text
 
-                print(formated_text)
+                    # Enviar para Telegram
+                    asyncio.run(
+                        smt.send(formated_text, entry.enclosures[0].href))
 
+                    print(formated_text)
+
+                else:
+                    print("Nenhuma nova notícia encontrada.")
             else:
-                print("Nenhuma nova notícia encontrada.")
-        else:
-            print("Feed vazio.")
-    else:
-        print("Erro ao ler o feed:", feed.status, feed.reason)
+                print("Feed vazio.")
+    except Exception as e:
+        print("Erro ao ler o feed:", feed.status, e)
+        time.sleep(60)
 
-    # Aguarda um tempo antes de verificar novamente o feed (por exemplo, 5 minutos)
-    time.sleep(3)
+    # Aguarda um tempo antes de verificar novamente o feed
+    time.sleep(60)
