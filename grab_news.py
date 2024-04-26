@@ -4,7 +4,8 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 import make_copy as mc
-import send_msg as sm
+import send_msg_tel as smt
+import send_msg_wpp as smw
 import asyncio
 
 
@@ -70,9 +71,18 @@ while True:
 
                 formated_text = mc.create(text)
 
-                print(formated_text)
+                formated_text = formated_text + f"\n\nSaiba mais: {
+                    ultima_noticia}"
 
-                asyncio.run(sm.send(formated_text, entry.enclosures[0].href))
+                # Enviar para WhatsApp
+                smw.send(formated_text, entry.title)
+
+                formated_text = f"{entry.title}\n\n" + formated_text
+
+                # Enviar para Telegram
+                asyncio.run(smt.send(formated_text, entry.enclosures[0].href))
+
+                print(formated_text)
 
             else:
                 print("Nenhuma nova notícia encontrada.")
@@ -83,8 +93,3 @@ while True:
 
     # Aguarda um tempo antes de verificar novamente o feed (por exemplo, 5 minutos)
     time.sleep(3)
-
-
-if __name__ == "__main__":
-    # Esta parte do código será executada somente quando o script for executado diretamente
-    pass

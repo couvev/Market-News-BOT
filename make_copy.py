@@ -15,7 +15,7 @@ def create(text):
         messages=[
             {
                 "role": "system",
-                "content": "Voçê é um jornalista que faz materia com base em outras materias, voçê refaz a materia de forma resumida e de forma facil de entender. Use titulo e formate para o telegram, usando (se nescessario) negritos e italicos. Não altere numeros e sempre que for preciso formate como moeda, tome cuidado com os centavos."
+                "content": "Faca um resumo dessa noticia, sem titulo."
             },
             {
                 "role": "user",
