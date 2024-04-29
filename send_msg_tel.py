@@ -1,13 +1,19 @@
 from telegram import Bot
-from telegram.constants import ParseMode
 import os
 from dotenv import load_dotenv
+import asyncio
 
 load_dotenv()
 
 
-async def send(msg, url):
-    bot = Bot(os.environ.get("TEL_BOT_KEY"))
-    chat_id = '-1002005750638'
-    await bot.send_photo(chat_id=chat_id, photo=url)
-    await bot.send_message(chat_id=chat_id, text=msg, parse_mode=ParseMode.MARKDOWN)
+async def send(msg, title, link_url):
+    try:
+        bot = Bot(os.environ.get("TEL_BOT_KEY"))
+        chat_id = '-1002005750638'
+        message = f"{title}\n\n{msg}\n\nSaiba mais: {link_url}"
+        await bot.send_message(chat_id=chat_id, text=message)
+    except Exception as e:
+        raise e
+
+if __name__ == "__main__":
+    pass
