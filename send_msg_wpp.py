@@ -15,7 +15,7 @@ def send(msg, titulo):
         # Inicializa o driver do Chrome
         options = webdriver.ChromeOptions()
         options.add_argument(
-            r"user-data-dir=C:\Users\thiag\AppData\Local\Google\Chrome\User Data\Default")
+            r"user-data-dir=C:\Users\Admin\AppData\Local\Google\Chrome\User Data\Default")
         servico = Service(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=servico, options=options)
 

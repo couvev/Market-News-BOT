@@ -10,7 +10,7 @@ import time
 # URLs dos feeds RSS
 urls_feeds = [
     "https://br.investing.com/rss/news_14.rss",
-    "https://www.infomoney.com.br/feed/",
+    "https://www.infomoney.com.br/economia/feed/",
 ]
 
 # Inicialmente, a última notícia é uma string vazia
@@ -83,4 +83,4 @@ while True:
         time.sleep(5)
 
     # Aguarda um tempo antes de verificar novamente o feed
-    time.sleep(300)
+    time.sleep(20000)
