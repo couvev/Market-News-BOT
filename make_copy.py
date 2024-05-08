@@ -16,7 +16,7 @@ def create(text):
             messages=[
                 {
                     "role": "system",
-                    "content": "Faca um breve resumo dessa noticia, sem titulo."
+                    "content": "Faca um resumo dessa noticia, com no maximo 7 linhas, sem titulo."
                 },
                 {
                     "role": "user",

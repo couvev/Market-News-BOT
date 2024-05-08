@@ -11,6 +11,7 @@ import time
 urls_feeds = [
     "https://br.investing.com/rss/news_14.rss",
     "https://www.infomoney.com.br/economia/feed/",
+    "https://www.cnnbrasil.com.br/economia/investimentos/feed/"
 ]
 
 # Inicialmente, a última notícia é uma string vazia
@@ -44,8 +45,10 @@ while True:
 
                         if url_feed == "https://br.investing.com/rss/news_14.rss":
                             text = gn.investing(entry.link)
-                        elif url_feed == "https://www.infomoney.com.br/feed/":
+                        elif url_feed == "https://www.infomoney.com.br/economia/feed/":
                             text = gn.infomoney(entry.link)
+                        elif url_feed == "https://www.cnnbrasil.com.br/economia/investimentos/feed/":
+                            text = gn.cnn(entry.link)
 
                         print("TEXTO Copiado")
 
@@ -70,7 +73,7 @@ while True:
                         # Enviar para WhatsApp
                         smw.send(formated_text, entry.title)
 
-                        print("TEXTO WPP")
+                        print("TEXTO WPP ENVIADO")
 
                         print(formated_text)
 
@@ -83,4 +86,4 @@ while True:
         time.sleep(5)
 
     # Aguarda um tempo antes de verificar novamente o feed
-    time.sleep(20000)
+    time.sleep(5)

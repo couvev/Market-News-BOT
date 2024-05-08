@@ -15,5 +15,16 @@ async def send(msg, title, link_url):
     except Exception as e:
         raise e
 
+
+async def send_photo():
+    try:
+        bot = Bot(os.environ.get("TEL_BOT_KEY"))
+        chat_id = '-1002005750638'
+        photo_path = 'new.jpg'
+        caption = "Fechamento do mercado"
+        await bot.send_photo(chat_id=chat_id, photo=open(photo_path, 'rb'), caption=caption)
+    except Exception as e:
+        raise e
+
 if __name__ == "__main__":
-    pass
+    asyncio.run(send_photo())
